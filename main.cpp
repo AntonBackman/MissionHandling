@@ -1,9 +1,15 @@
 #include <iostream>
 #include "entities/MissionCommand.h"
+#include "helpers/StringHelpers.h"
+#include <vector>
+#include <sstream>
+
+using namespace std;
 
 int main() {
-    auto* driveForward = MissionCommand::parseFromCommandType("DriveForward");
+    stringstream inputCommands("DriveForward, Reverse");
+    vector<string> splittedCommands = splitAndTrim(inputCommands, ',');
 
-    auto* blarg = MissionCommand::parseFromCommandType("blarg");
+    vector<MissionCommand*> missionCommands = MissionCommand::parseFromCommandTypes(splittedCommands);
     return 0;
 }

@@ -61,6 +61,12 @@ build CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj: CXX_COMPILE
   OBJECT_DIR = CMakeFiles\MissionHandler.dir
   OBJECT_FILE_DIR = CMakeFiles\MissionHandler.dir\entities
 
+build CMakeFiles/MissionHandler.dir/helpers/StringHelpers.cpp.obj: CXX_COMPILER__MissionHandler_Debug C$:/Users/anton/CLionProjects/MissionHandler/helpers/StringHelpers.cpp || cmake_object_order_depends_target_MissionHandler
+  DEP_FILE = CMakeFiles\MissionHandler.dir\helpers\StringHelpers.cpp.obj.d
+  FLAGS = -g -std=gnu++14
+  OBJECT_DIR = CMakeFiles\MissionHandler.dir
+  OBJECT_FILE_DIR = CMakeFiles\MissionHandler.dir\helpers
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target MissionHandler
@@ -69,7 +75,7 @@ build CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj: CXX_COMPILE
 #############################################
 # Link the executable MissionHandler.exe
 
-build MissionHandler.exe: CXX_EXECUTABLE_LINKER__MissionHandler_Debug CMakeFiles/MissionHandler.dir/main.cpp.obj CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj
+build MissionHandler.exe: CXX_EXECUTABLE_LINKER__MissionHandler_Debug CMakeFiles/MissionHandler.dir/main.cpp.obj CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj CMakeFiles/MissionHandler.dir/helpers/StringHelpers.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\MissionHandler.dir

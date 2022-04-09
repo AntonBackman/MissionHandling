@@ -3,4 +3,4 @@ project(MissionHandler)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(MissionHandler main.cpp entities/MissionCommand.cpp entities/MissionCommand.h)
+add_executable(MissionHandler main.cpp entities/MissionCommand.cpp entities/MissionCommand.h helpers/StringHelpers.cpp helpers/StringHelpers.h)

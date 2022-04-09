@@ -7,6 +7,7 @@
 
 
 #include <string>
+#include <vector>
 
 class MissionCommand {
 public:
@@ -25,6 +26,8 @@ public:
     void setFailureProbability(float failureProbability);
 
     static MissionCommand* parseFromCommandType(std::string commandType);
+
+    static std::vector<MissionCommand*> parseFromCommandTypes(std::vector<std::string> commandTypes);
 
 private:
         std::string commandType;

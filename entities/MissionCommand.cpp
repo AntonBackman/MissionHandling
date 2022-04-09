@@ -4,6 +4,7 @@
 
 #include "MissionCommand.h"
 #include <stdexcept>
+#include <vector>
 
 const std::string &MissionCommand::getCommandType() const {
     return commandType;
@@ -45,3 +46,12 @@ MissionCommand* MissionCommand::parseFromCommandType(std::string commandType) {
 
 MissionCommand::MissionCommand(const std::string &commandType, int executionTime, float failureProbability)
         : commandType(commandType), executionTimeSeconds(executionTime), failureProbability(failureProbability) {}
+
+std::vector<MissionCommand *> MissionCommand::parseFromCommandTypes(std::vector<std::string> commandTypes) {
+    std::vector<MissionCommand*> missionCommands;
+    missionCommands.reserve(commandTypes.size());
+    for (auto &command : commandTypes) {
+        missionCommands.push_back(MissionCommand::parseFromCommandType(command));
+    }
+    return missionCommands;
+}

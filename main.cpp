@@ -2,11 +2,11 @@
 #include "entities/MissionCommand.h"
 #include "helpers/StringHelpers.h"
 #include <vector>
-#include <sstream>
 
 std::vector<std::string> getCommands();
 
 int main() {
+
     std::vector<std::string> splitInputCommands = getCommands();
 
     std::vector<MissionCommand*> missionCommands = MissionCommand::getMissionCommands(splitInputCommands);

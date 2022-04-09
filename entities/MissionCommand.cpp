@@ -7,6 +7,7 @@
 #include <stdexcept>
 #include <vector>
 #include <windows.h>
+#include <cstdlib>
 
 const std::string &MissionCommand::getCommandType() const {
     return commandType;
@@ -97,6 +98,7 @@ void MissionCommand::validateDump(const std::vector<MissionCommand *> &missionCo
 }
 
 void MissionCommand::runMissionCommands(const std::vector<MissionCommand *> &missionCommands) {
+    srand (static_cast <unsigned> (time(nullptr)));
     for (auto* missionCommand : missionCommands) {
         missionCommand->setStatus(EXECUTING);
         executeMissionCommand(missionCommand);
@@ -112,8 +114,7 @@ void MissionCommand::executeMissionCommand(MissionCommand *missionCommand) {
     }
 
     // Check if MissionCommand failed
-    srand((unsigned)time(nullptr ) );
-    float randomFloat = (float) rand()/RAND_MAX;
+    float randomFloat = static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
     if (randomFloat < missionCommand->getFailureProbability()) {
         missionCommand->setStatus(FAILED);
         std::cout << "Failed MissionCommand: " + missionCommand->getCommandType() << "\n";

@@ -88,7 +88,7 @@ void MissionCommand::validateSize(const std::vector<MissionCommand *> &missionCo
 }
 
 void MissionCommand::validateDump(const std::vector<MissionCommand *> &missionCommands) {
-    MissionCommand* previousCommand;
+    MissionCommand* previousCommand = missionCommands.front();
     for (auto* missionCommand : missionCommands) {
         if (missionCommand->getCommandType() == "Dump" && previousCommand->getCommandType() != "Reverse") {
             throw std::runtime_error("Validation error: Dump is not done after a Reverse command");

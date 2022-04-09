@@ -116,12 +116,13 @@ void MissionCommand::executeMissionCommand(MissionCommand *missionCommand) {
     float randomFloat = (float) rand()/RAND_MAX;
     if (randomFloat < missionCommand->getFailureProbability()) {
         missionCommand->setStatus(FAILED);
+        std::cout << "Failed MissionCommand: " + missionCommand->getCommandType() << "\n";
         throw std::runtime_error("Failed MissionCommand: " + missionCommand->getCommandType());
     }
 }
 
 void MissionCommand::report(const std::vector<MissionCommand *> &missionCommands) {
-    std::cout << "Mission report:\n";
+    std::cout << "\nMission report:\n";
     for (auto* missionCommand : missionCommands) {
         std::cout << "MissionCommand: " << missionCommand->getCommandType() << ", Status: " << getStatusAsString(missionCommand) << "\n";
     }

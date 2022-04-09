@@ -11,8 +11,13 @@ int main() {
 
     std::vector<MissionCommand*> missionCommands = MissionCommand::getMissionCommands(splitInputCommands);
 
-    std::cout << "Mission progress:\n";
-    MissionCommand::runMissionCommands(missionCommands);
+    try {
+        std::cout << "\nMission progress:\n";
+        MissionCommand::runMissionCommands(missionCommands);
+        std::cout << "Mission complete!\n";
+    } catch (const std::runtime_error& e) {
+        std::cout << "Could not finish mission!\n";
+    }
 
     MissionCommand::report(missionCommands);
 

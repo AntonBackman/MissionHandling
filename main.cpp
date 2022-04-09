@@ -4,15 +4,20 @@
 #include <vector>
 #include <sstream>
 
-using namespace std;
+std::vector<std::string> getCommands();
 
 int main() {
-    string input;
-    getline(cin, input);
-    stringstream inputCommands(input);
+    std::vector<std::string> splitInputCommands = getCommands();
 
-    vector<string> splitInputCommands = splitAndTrim(inputCommands, ',');
+    std::vector<MissionCommand*> missionCommands = MissionCommand::getMissionCommands(splitInputCommands);
 
-    vector<MissionCommand*> missionCommands = MissionCommand::parseFromCommandTypes(splitInputCommands);
     return 0;
+}
+
+std::vector<std::string> getCommands() {
+    std::string input;
+    getline(std::cin, input);
+    std::stringstream commands(input);
+    std::vector<std::string> splitCommands = splitAndTrim(commands, ',');
+    return splitCommands;
 }

@@ -3,6 +3,7 @@
 //
 
 #include "MissionCommand.h"
+#include <iostream>
 #include <stdexcept>
 #include <vector>
 
@@ -49,6 +50,12 @@ MissionCommand::MissionCommand(const std::string &commandType, int executionTime
     MissionCommand::status = PENDING;
 }
 
+std::vector<MissionCommand *> MissionCommand::getMissionCommands(const std::vector<std::string>& commands) {
+    std::vector<MissionCommand*> missionCommands = MissionCommand::parseFromCommandTypes(commands);
+    MissionCommand::validateMission(missionCommands);
+    return missionCommands;
+}
+
 std::vector<MissionCommand *> MissionCommand::parseFromCommandTypes(const std::vector<std::string>& commandTypes) {
     std::vector<MissionCommand*> missionCommands;
     missionCommands.reserve(commandTypes.size());
@@ -56,4 +63,26 @@ std::vector<MissionCommand *> MissionCommand::parseFromCommandTypes(const std::v
         missionCommands.push_back(MissionCommand::parseFromCommandType(command));
     }
     return missionCommands;
+}
+
+void MissionCommand::validateMission(const std::vector<MissionCommand *>& missionCommands) {
+    validateSize(missionCommands);
+    validateDump(missionCommands);
+    std::cout << "Mission accepted!";
+}
+
+void MissionCommand::validateSize(const std::vector<MissionCommand *> &missionCommands) {
+    if (missionCommands.size() > 5) {
+        throw std::runtime_error("Validation error: There are more than 5 commands");
+    }
+}
+
+void MissionCommand::validateDump(const std::vector<MissionCommand *> &missionCommands) {
+    MissionCommand* previousCommand;
+    for (auto* missionCommand : missionCommands) {
+        if (missionCommand->getCommandType() == "Dump" && previousCommand->getCommandType() != "Reverse") {
+            throw std::runtime_error("Validation error: Dump is not done after a Reverse command");
+        }
+        previousCommand = missionCommand;
+    }
 }

@@ -25,9 +25,9 @@ public:
 
     void setFailureProbability(float failureProbability);
 
-    static MissionCommand* parseFromCommandType(std::string commandType);
+    static MissionCommand* parseFromCommandType(const std::string& commandType);
 
-    static std::vector<MissionCommand*> parseFromCommandTypes(std::vector<std::string> commandTypes);
+    static std::vector<MissionCommand*> parseFromCommandTypes(const std::vector<std::string>& commandTypes);
 
 private:
         std::string commandType;

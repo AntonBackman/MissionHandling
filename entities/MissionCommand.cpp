@@ -30,7 +30,7 @@ void MissionCommand::setFailureProbability(float failureProbability) {
     MissionCommand::failureProbability = failureProbability;
 }
 
-MissionCommand* MissionCommand::parseFromCommandType(std::string commandType) {
+MissionCommand* MissionCommand::parseFromCommandType(const std::string& commandType) {
     if(commandType == "DriveForward") {
         return new MissionCommand("DriveForward", 5, 0.05);
     } else if (commandType == "Reverse") {
@@ -47,7 +47,7 @@ MissionCommand* MissionCommand::parseFromCommandType(std::string commandType) {
 MissionCommand::MissionCommand(const std::string &commandType, int executionTime, float failureProbability)
         : commandType(commandType), executionTimeSeconds(executionTime), failureProbability(failureProbability) {}
 
-std::vector<MissionCommand *> MissionCommand::parseFromCommandTypes(std::vector<std::string> commandTypes) {
+std::vector<MissionCommand *> MissionCommand::parseFromCommandTypes(const std::vector<std::string>& commandTypes) {
     std::vector<MissionCommand*> missionCommands;
     missionCommands.reserve(commandTypes.size());
     for (auto &command : commandTypes) {

@@ -7,9 +7,12 @@
 using namespace std;
 
 int main() {
-    stringstream inputCommands("DriveForward, Reverse");
-    vector<string> splittedCommands = splitAndTrim(inputCommands, ',');
+    string input;
+    getline(cin, input);
+    stringstream inputCommands(input);
 
-    vector<MissionCommand*> missionCommands = MissionCommand::parseFromCommandTypes(splittedCommands);
+    vector<string> splitInputCommands = splitAndTrim(inputCommands, ',');
+
+    vector<MissionCommand*> missionCommands = MissionCommand::parseFromCommandTypes(splitInputCommands);
     return 0;
 }

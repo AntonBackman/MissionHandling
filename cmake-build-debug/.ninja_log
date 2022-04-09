@@ -1,0 +1,27 @@
+# ninja log v5
+2	254	6711339438384888	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+254	336	6711339439183495	MissionHandler.exe	66d9b91b09bdfb1d
+0	181	6711339961074632	build.ninja	89689ad3928e8e4d
+12	211	6711339437958304	CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj	80a89fffad21f9ba
+2	243	6711340180205021	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+243	325	6711340181013546	MissionHandler.exe	66d9b91b09bdfb1d
+2	236	6711340241241293	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+236	317	6711340242044857	MissionHandler.exe	66d9b91b09bdfb1d
+2	245	6711340329762490	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+246	328	6711340330575976	MissionHandler.exe	66d9b91b09bdfb1d
+2	202	6711341197320817	CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj	80a89fffad21f9ba
+202	289	6711341198169024	MissionHandler.exe	66d9b91b09bdfb1d
+2	262	6711341347374315	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+262	349	6711341348237403	MissionHandler.exe	66d9b91b09bdfb1d
+2	238	6711341495780998	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+238	321	6711341496589526	MissionHandler.exe	66d9b91b09bdfb1d
+2	243	6711341814384886	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+243	328	6711341815233096	MissionHandler.exe	66d9b91b09bdfb1d
+12	199	6711342096619986	CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj	80a89fffad21f9ba
+2	242	6711342097061451	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+242	410	6711342098718189	MissionHandler.exe	66d9b91b09bdfb1d
+12	211	6711345397777114	CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj	80a89fffad21f9ba
+2	257	6711345398238418	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+257	343	6711345399076704	MissionHandler.exe	66d9b91b09bdfb1d
+2	249	6711345865090262	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+250	332	6711345865913670	MissionHandler.exe	66d9b91b09bdfb1d

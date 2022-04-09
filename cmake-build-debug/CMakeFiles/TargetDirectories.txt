@@ -1,0 +1,3 @@
+C:/Users/anton/CLionProjects/MissionHandler/cmake-build-debug/CMakeFiles/MissionHandler.dir
+C:/Users/anton/CLionProjects/MissionHandler/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/anton/CLionProjects/MissionHandler/cmake-build-debug/CMakeFiles/rebuild_cache.dir

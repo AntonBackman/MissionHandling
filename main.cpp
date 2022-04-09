@@ -9,17 +9,26 @@ int main() {
 
     std::vector<std::string> splitInputCommands = getCommands();
 
-    std::vector<MissionCommand*> missionCommands = MissionCommand::getMissionCommands(splitInputCommands);
-
+    std::vector<MissionCommand*> missionCommands;
+    bool shouldRunMissionCommands = false;
     try {
-        std::cout << "\nMission progress:\n";
-        MissionCommand::runMissionCommands(missionCommands);
-        std::cout << "Mission complete!\n";
+        missionCommands = MissionCommand::getMissionCommands(splitInputCommands);
+        shouldRunMissionCommands = true;
     } catch (const std::runtime_error& e) {
-        std::cout << "Could not finish mission!\n";
+        std::cout << "Mission rejected!\n";
     }
 
-    MissionCommand::report(missionCommands);
+    if (shouldRunMissionCommands) {
+        try {
+            std::cout << "\nMission progress:\n";
+            MissionCommand::runMissionCommands(missionCommands);
+            std::cout << "Mission complete!\n";
+        } catch (const std::runtime_error& e) {
+            std::cout << "Could not finish mission!\n";
+        }
+
+        MissionCommand::report(missionCommands);
+    }
 
     return 0;
 }

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
+#include <windows.h>
 
 const std::string &MissionCommand::getCommandType() const {
     return commandType;
@@ -30,6 +31,15 @@ float MissionCommand::getFailureProbability() const {
 void MissionCommand::setFailureProbability(float failureProbability) {
     MissionCommand::failureProbability = failureProbability;
 }
+
+Status MissionCommand::getStatus() const {
+    return status;
+}
+
+void MissionCommand::setStatus(Status status) {
+    MissionCommand::status = status;
+}
+
 
 MissionCommand* MissionCommand::parseFromCommandType(const std::string& commandType) {
     if(commandType == "DriveForward") {
@@ -68,7 +78,7 @@ std::vector<MissionCommand *> MissionCommand::parseFromCommandTypes(const std::v
 void MissionCommand::validateMission(const std::vector<MissionCommand *>& missionCommands) {
     validateSize(missionCommands);
     validateDump(missionCommands);
-    std::cout << "Mission accepted!";
+    std::cout << "Mission accepted!\n";
 }
 
 void MissionCommand::validateSize(const std::vector<MissionCommand *> &missionCommands) {
@@ -84,5 +94,29 @@ void MissionCommand::validateDump(const std::vector<MissionCommand *> &missionCo
             throw std::runtime_error("Validation error: Dump is not done after a Reverse command");
         }
         previousCommand = missionCommand;
+    }
+}
+
+void MissionCommand::runMissionCommands(const std::vector<MissionCommand *> &missionCommands) {
+    for (auto* missionCommand : missionCommands) {
+        missionCommand->setStatus(EXECUTING);
+        executeMissionCommand(missionCommand);
+        missionCommand->setStatus(DONE);
+    }
+}
+
+void MissionCommand::executeMissionCommand(MissionCommand *missionCommand) {
+    // Actual MissionCommand execution
+    for (int i = 0; i <= missionCommand->getExecutionTime(); i++) {
+        std::cout << missionCommand->getCommandType() + " executing (" << i << "s)\n";
+        Sleep(1000);
+    }
+
+    // Check if MissionCommand failed
+    srand((unsigned)time(nullptr ) );
+    float randomFloat = (float) rand()/RAND_MAX;
+    if (randomFloat < missionCommand->getFailureProbability()) {
+        missionCommand->setStatus(FAILED);
+        throw std::runtime_error("Failed MissionCommand: " + missionCommand->getCommandType());
     }
 }

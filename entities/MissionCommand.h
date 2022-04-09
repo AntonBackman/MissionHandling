@@ -35,6 +35,12 @@ public:
 
     static void validateMission(const std::vector<MissionCommand *>& missionCommands);
 
+    static void runMissionCommands(const std::vector<MissionCommand *> &missionCommands);
+
+    Status getStatus() const;
+
+    void setStatus(Status status);
+
 private:
         std::string commandType;
         int executionTimeSeconds;
@@ -44,6 +50,8 @@ private:
     static void validateDump(const std::vector<MissionCommand *> &missionCommands);
 
     static void validateSize(const std::vector<MissionCommand *> &missionCommands);
+
+    static void executeMissionCommand(MissionCommand *missionCommand);
 };
 
 

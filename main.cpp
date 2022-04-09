@@ -11,6 +11,9 @@ int main() {
 
     std::vector<MissionCommand*> missionCommands = MissionCommand::getMissionCommands(splitInputCommands);
 
+    std::cout << "Mission progress:\n";
+    MissionCommand::runMissionCommands(missionCommands);
+
     return 0;
 }
 

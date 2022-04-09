@@ -27,6 +27,10 @@ public:
 
     void setFailureProbability(float failureProbability);
 
+    Status getStatus() const;
+
+    void setStatus(Status status);
+
     static MissionCommand* parseFromCommandType(const std::string& commandType);
 
     static std::vector<MissionCommand*> getMissionCommands(const std::vector<std::string>& commands);
@@ -37,9 +41,7 @@ public:
 
     static void runMissionCommands(const std::vector<MissionCommand *> &missionCommands);
 
-    Status getStatus() const;
-
-    void setStatus(Status status);
+    static void report(const std::vector<MissionCommand *> &missionCommands);
 
 private:
         std::string commandType;
@@ -52,6 +54,8 @@ private:
     static void validateSize(const std::vector<MissionCommand *> &missionCommands);
 
     static void executeMissionCommand(MissionCommand *missionCommand);
+
+    static std::string getStatusAsString(const MissionCommand *missionCommand);
 };
 
 

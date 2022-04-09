@@ -14,6 +14,8 @@ int main() {
     std::cout << "Mission progress:\n";
     MissionCommand::runMissionCommands(missionCommands);
 
+    MissionCommand::report(missionCommands);
+
     return 0;
 }
 

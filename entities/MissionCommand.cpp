@@ -40,7 +40,6 @@ void MissionCommand::setStatus(Status status) {
     MissionCommand::status = status;
 }
 
-
 MissionCommand* MissionCommand::parseFromCommandType(const std::string& commandType) {
     if(commandType == "DriveForward") {
         return new MissionCommand("DriveForward", 5, 0.05);
@@ -119,4 +118,30 @@ void MissionCommand::executeMissionCommand(MissionCommand *missionCommand) {
         missionCommand->setStatus(FAILED);
         throw std::runtime_error("Failed MissionCommand: " + missionCommand->getCommandType());
     }
+}
+
+void MissionCommand::report(const std::vector<MissionCommand *> &missionCommands) {
+    std::cout << "Mission report:\n";
+    for (auto* missionCommand : missionCommands) {
+        std::cout << "MissionCommand: " << missionCommand->getCommandType() << ", Status: " << getStatusAsString(missionCommand) << "\n";
+    }
+}
+
+std::string MissionCommand::getStatusAsString(const MissionCommand *missionCommand) {
+    std::string status;
+    switch (missionCommand->getStatus()) {
+        case PENDING:
+            status = "Pending";
+            break;
+        case EXECUTING:
+            status = "Executing";
+            break;
+        case FAILED:
+            status = "Failed";
+            break;
+        case DONE:
+            status = "Done";
+            break;
+    }
+    return status;
 }

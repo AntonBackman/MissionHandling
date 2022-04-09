@@ -26,3 +26,9 @@
 411	516	6712169594691132	MissionHandler.exe	593f90453675e99a
 2	373	6712171205354452	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
 373	476	6712171206361220	MissionHandler.exe	593f90453675e99a
+12	283	6712176463932181	CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj	80a89fffad21f9ba
+2	379	6712176464894315	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+379	481	6712176465896126	MissionHandler.exe	593f90453675e99a
+14	289	6712179041377352	CMakeFiles/MissionHandler.dir/entities/MissionCommand.cpp.obj	80a89fffad21f9ba
+2	404	6712179042537864	CMakeFiles/MissionHandler.dir/main.cpp.obj	be94585d5f1a2e76
+404	502	6712179043495039	MissionHandler.exe	593f90453675e99a

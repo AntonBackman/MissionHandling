@@ -45,7 +45,9 @@ MissionCommand* MissionCommand::parseFromCommandType(const std::string& commandT
 }
 
 MissionCommand::MissionCommand(const std::string &commandType, int executionTime, float failureProbability)
-        : commandType(commandType), executionTimeSeconds(executionTime), failureProbability(failureProbability) {}
+        : commandType(commandType), executionTimeSeconds(executionTime), failureProbability(failureProbability) {
+    MissionCommand::status = PENDING;
+}
 
 std::vector<MissionCommand *> MissionCommand::parseFromCommandTypes(const std::vector<std::string>& commandTypes) {
     std::vector<MissionCommand*> missionCommands;

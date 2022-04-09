@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+enum Status {PENDING, EXECUTING, FAILED, DONE};
+
 class MissionCommand {
 public:
     MissionCommand(const std::string &commandType, int executionTime, float failureProbability);
@@ -33,6 +35,7 @@ private:
         std::string commandType;
         int executionTimeSeconds;
         float failureProbability;
+        Status status;
 };
 
 

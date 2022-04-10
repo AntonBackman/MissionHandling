@@ -2,4 +2,4 @@
 
 Inputs:
 
-DriveForward, Reverse, Dump, FlashHighBeams
+DriveForward, Reverse, Dump, FlashHighBeam

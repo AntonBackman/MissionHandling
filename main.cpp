@@ -15,7 +15,8 @@ int main() {
         missionCommands = MissionCommand::getMissionCommands(splitInputCommands);
         shouldRunMissionCommands = true;
     } catch (const std::runtime_error& e) {
-        std::cout << "Mission rejected!\n";
+        std::cout << "Mission rejected: \n";
+        std::cerr << e.what();
     }
 
     if (shouldRunMissionCommands) {
@@ -25,6 +26,7 @@ int main() {
             std::cout << "Mission complete!\n";
         } catch (const std::runtime_error& e) {
             std::cout << "Could not finish mission!\n";
+            std::cerr << e.what();
         }
 
         MissionCommand::report(missionCommands);

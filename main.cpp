@@ -3,8 +3,6 @@
 #include "helpers/StringHelpers.h"
 #include <vector>
 
-std::vector<std::string> getCommands();
-
 int main() {
 
     std::vector<std::string> splitInputCommands = getCommands();
@@ -33,12 +31,4 @@ int main() {
     }
 
     return 0;
-}
-
-std::vector<std::string> getCommands() {
-    std::string input;
-    getline(std::cin, input);
-    std::stringstream commands(input);
-    std::vector<std::string> splitCommands = splitAndTrim(commands, ',');
-    return splitCommands;
 }

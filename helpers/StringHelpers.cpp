@@ -9,6 +9,7 @@
 #include <locale>
 #include <vector>
 #include <sstream>
+#include <iostream>
 
 std::vector<std::string> splitAndTrim(std::stringstream& input, char delimiter) {
     std::string segment;
@@ -38,4 +39,12 @@ static inline std::string &rtrim(std::string &s) {
 // trim from both ends
 static inline std::string &trim(std::string &s) {
     return ltrim(rtrim(s));
+}
+
+std::vector<std::string> getCommands() {
+    std::string input;
+    getline(std::cin, input);
+    std::stringstream commands(input);
+    std::vector<std::string> splitCommands = splitAndTrim(commands, ',');
+    return splitCommands;
 }

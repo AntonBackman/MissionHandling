@@ -3,6 +3,7 @@
 //
 
 #include "MissionCommand.h"
+#include "../helpers/StringHelpers.h"
 #include <iostream>
 #include <stdexcept>
 #include <vector>
@@ -146,4 +147,16 @@ std::string MissionCommand::getStatusAsString(const MissionCommand *missionComma
             break;
     }
     return status;
+}
+
+std::vector<MissionCommand*> MissionCommand::getMissionCommandsFromTerminal() {
+    std::vector<std::string> splitInputCommands = getCommands();
+
+    std::vector<MissionCommand*> missionCommands;
+    try {
+        missionCommands = MissionCommand::getMissionCommands(splitInputCommands);
+    } catch (const std::runtime_error& e) {
+        std::cout << "Mission rejected: \n" << e.what();
+    }
+    return missionCommands;
 }

@@ -43,6 +43,8 @@ public:
 
     static void report(const std::vector<MissionCommand *> &missionCommands);
 
+    static std::vector<MissionCommand*> getMissionCommandsFromTerminal() ;
+
 private:
         std::string commandType;
         int executionTimeSeconds;

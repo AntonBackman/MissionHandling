@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include <future>
 
 enum Status {PENDING, EXECUTING, FAILED, DONE};
 
@@ -39,7 +40,7 @@ public:
 
     static void validateMission(const std::vector<MissionCommand *>& missionCommands);
 
-    static void runMissionCommands(const std::vector<MissionCommand *> &missionCommands);
+    static void runMissionCommands(const std::vector<MissionCommand *> &missionCommands, std::atomic_bool &cancellation);
 
     static void report(const std::vector<MissionCommand *> &missionCommands);
 

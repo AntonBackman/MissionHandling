@@ -9,6 +9,7 @@
 #include <vector>
 #include <windows.h>
 #include <cstdlib>
+#include <future>
 
 const std::string &MissionCommand::getCommandType() const {
     return commandType;
@@ -44,13 +45,13 @@ void MissionCommand::setStatus(Status status) {
 
 MissionCommand* MissionCommand::parseFromCommandType(const std::string& commandType) {
     if(commandType == "DriveForward") {
-        return new MissionCommand("DriveForward", 5, 0.05);
+        return new MissionCommand("DriveForward", 5, 0.0005);
     } else if (commandType == "Reverse") {
-        return new MissionCommand("Reverse", 5, 0.07);
+        return new MissionCommand("Reverse", 5, 0.0007);
     } else if (commandType == "Dump") {
-        return new MissionCommand("Dump", 10, 0.01);
+        return new MissionCommand("Dump", 10, 0.0001);
     } else if (commandType == "FlashHighBeam") {
-        return new MissionCommand("FlashHighBeam", 1, 0.005);
+        return new MissionCommand("FlashHighBeam", 1, 0.00005);
     } else {
         throw std::runtime_error("Could not parse to MissionCommand: " + commandType);
     }
@@ -98,9 +99,12 @@ void MissionCommand::validateDump(const std::vector<MissionCommand *> &missionCo
     }
 }
 
-void MissionCommand::runMissionCommands(const std::vector<MissionCommand *> &missionCommands) {
-    srand (static_cast <unsigned> (time(nullptr)));
+void MissionCommand::runMissionCommands(const std::vector<MissionCommand *> &missionCommands, std::atomic_bool &cancellation) {
     for (auto* missionCommand : missionCommands) {
+        if (cancellation) {
+            std::cout << "MissionCommands cancelled!\n";
+            return;
+        }
         missionCommand->setStatus(EXECUTING);
         executeMissionCommand(missionCommand);
         missionCommand->setStatus(DONE);

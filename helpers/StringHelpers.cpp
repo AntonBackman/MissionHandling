@@ -10,6 +10,7 @@
 #include <vector>
 #include <sstream>
 #include <iostream>
+#include <future>
 
 std::vector<std::string> splitAndTrim(std::stringstream& input, char delimiter) {
     std::string segment;
@@ -47,4 +48,12 @@ std::vector<std::string> getCommands() {
     std::stringstream commands(input);
     std::vector<std::string> splitCommands = splitAndTrim(commands, ',');
     return splitCommands;
+}
+
+void setCancellation(std::atomic_bool &cancellation) {
+    std::string input;
+    getline(std::cin, input);
+    if (input == "Y") {
+        cancellation = true;
+    }
 }

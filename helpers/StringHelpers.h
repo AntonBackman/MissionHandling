@@ -11,10 +11,12 @@
 #include <locale>
 #include <vector>
 #include <sstream>
+#include <future>
 
 
 std::vector<std::string> splitAndTrim(std::stringstream& input, char delimiter);
 static inline std::string &trim(std::string &s);
 std::vector<std::string> getCommands();
+void setCancellation(std::atomic_bool &cancellation);
 
 #endif //MISSIONHANDLER_STRINGHELPERS_H

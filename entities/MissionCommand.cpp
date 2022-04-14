@@ -43,22 +43,31 @@ void MissionCommand::setStatus(Status status) {
     MissionCommand::status = status;
 }
 
+const std::string &MissionCommand::getReplaceableByCommandType() const {
+    return replaceableByCommandType;
+}
+
+void MissionCommand::setReplaceableByCommandType(const std::string &replaceableByCommandType) {
+    MissionCommand::replaceableByCommandType = replaceableByCommandType;
+}
+
+
 MissionCommand* MissionCommand::parseFromCommandType(const std::string& commandType) {
     if(commandType == "DriveForward") {
-        return new MissionCommand("DriveForward", 5, 0.0005);
+        return new MissionCommand("DriveForward", 5, 0.05, "DriveForward");
     } else if (commandType == "Reverse") {
-        return new MissionCommand("Reverse", 5, 0.0007);
+        return new MissionCommand("Reverse", 5, 0.07, "Reverse");
     } else if (commandType == "Dump") {
-        return new MissionCommand("Dump", 10, 0.0001);
+        return new MissionCommand("Dump", 10, 0.01, "None");
     } else if (commandType == "FlashHighBeam") {
-        return new MissionCommand("FlashHighBeam", 1, 0.00005);
+        return new MissionCommand("FlashHighBeam", 1, 0.005, "Any");
     } else {
         throw std::runtime_error("Could not parse to MissionCommand: " + commandType);
     }
 }
 
-MissionCommand::MissionCommand(const std::string &commandType, int executionTime, float failureProbability)
-        : commandType(commandType), executionTimeSeconds(executionTime), failureProbability(failureProbability) {
+MissionCommand::MissionCommand(const std::string &commandType, int executionTime, float failureProbability, const std::string &replaceableByCommandType)
+        : commandType(commandType), executionTimeSeconds(executionTime), failureProbability(failureProbability), replaceableByCommandType(replaceableByCommandType) {
     MissionCommand::status = PENDING;
 }
 
@@ -80,7 +89,6 @@ std::vector<MissionCommand *> MissionCommand::parseFromCommandTypes(const std::v
 void MissionCommand::validateMission(const std::vector<MissionCommand *>& missionCommands) {
     validateSize(missionCommands);
     validateDump(missionCommands);
-    std::cout << "Mission accepted!\n";
 }
 
 void MissionCommand::validateSize(const std::vector<MissionCommand *> &missionCommands) {
@@ -100,21 +108,26 @@ void MissionCommand::validateDump(const std::vector<MissionCommand *> &missionCo
 }
 
 void MissionCommand::runMissionCommands(const std::vector<MissionCommand *> &missionCommands, std::atomic_bool &cancellation) {
+    srand (static_cast <unsigned> (time(nullptr)));
     for (auto* missionCommand : missionCommands) {
-        if (cancellation) {
-            std::cout << "MissionCommands cancelled!\n";
+        missionCommand->setStatus(EXECUTING);
+        executeMissionCommand(missionCommand, cancellation);
+        if (missionCommand->getStatus() == ABORTED) {
             return;
         }
-        missionCommand->setStatus(EXECUTING);
-        executeMissionCommand(missionCommand);
         missionCommand->setStatus(DONE);
     }
 }
 
-void MissionCommand::executeMissionCommand(MissionCommand *missionCommand) {
+void MissionCommand::executeMissionCommand(MissionCommand *missionCommand, std::atomic_bool &cancellation) {
     // Actual MissionCommand execution
     for (int i = 0; i <= missionCommand->getExecutionTime(); i++) {
         std::cout << missionCommand->getCommandType() + " executing (" << i << "s)\n";
+        if (cancellation) {
+            std::cout << "MissionCommands cancelled!\n";
+            missionCommand->setStatus(ABORTED);
+            return;
+        }
         Sleep(1000);
     }
 
@@ -149,6 +162,9 @@ std::string MissionCommand::getStatusAsString(const MissionCommand *missionComma
         case DONE:
             status = "Done";
             break;
+        case ABORTED:
+            status = "Aborted";
+            break;
     }
     return status;
 }
@@ -163,4 +179,12 @@ std::vector<MissionCommand*> MissionCommand::getMissionCommandsFromTerminal() {
         std::cout << "Mission rejected: \n" << e.what();
     }
     return missionCommands;
+}
+
+MissionCommand* MissionCommand::getFirstAbortedMissionCommand(std::vector<MissionCommand*> missionCommands) {
+    for (auto* missionCommand : missionCommands) {
+        if (missionCommand->getStatus() == ABORTED) {
+            return missionCommand;
+        }
+    }
 }

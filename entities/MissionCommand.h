@@ -10,11 +10,11 @@
 #include <vector>
 #include <future>
 
-enum Status {PENDING, EXECUTING, FAILED, DONE};
+enum Status {PENDING, EXECUTING, FAILED, DONE, ABORTED};
 
 class MissionCommand {
 public:
-    MissionCommand(const std::string &commandType, int executionTime, float failureProbability);
+    MissionCommand(const std::string &commandType, int executionTime, float failureProbability, const std::string &replaceableByCommandType);
 
     const std::string &getCommandType() const;
 
@@ -32,6 +32,10 @@ public:
 
     void setStatus(Status status);
 
+    const std::string &getReplaceableByCommandType() const;
+
+    void setReplaceableByCommandType(const std::string &replaceableByCommandType);
+
     static MissionCommand* parseFromCommandType(const std::string& commandType);
 
     static std::vector<MissionCommand*> getMissionCommands(const std::vector<std::string>& commands);
@@ -44,11 +48,16 @@ public:
 
     static void report(const std::vector<MissionCommand *> &missionCommands);
 
-    static std::vector<MissionCommand*> getMissionCommandsFromTerminal() ;
+    static std::vector<MissionCommand*> getMissionCommandsFromTerminal();
+
+    static MissionCommand* getFirstAbortedMissionCommand(std::vector<MissionCommand*> missionCommands);
 
 private:
         std::string commandType;
-        int executionTimeSeconds;
+        std::string replaceableByCommandType;
+
+private:
+    int executionTimeSeconds;
         float failureProbability;
         Status status;
 
@@ -56,7 +65,7 @@ private:
 
     static void validateSize(const std::vector<MissionCommand *> &missionCommands);
 
-    static void executeMissionCommand(MissionCommand *missionCommand);
+    static void executeMissionCommand(MissionCommand *missionCommand, std::atomic_bool &cancellation);
 
     static std::string getStatusAsString(const MissionCommand *missionCommand);
 };

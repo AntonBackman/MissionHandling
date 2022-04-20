@@ -11,7 +11,8 @@ bool isAbortedMissionReplaceable(const MissionCommand *firstAbortedMissionComman
 
 int main() {
     MissionCommand* firstAbortedMissionCommand = NULL;
-    while(true) {
+    bool runLoop = true;
+    while(runLoop) {
         if (firstAbortedMissionCommand != NULL) {
             std::cout << "Last, aborted, command: " << firstAbortedMissionCommand->getCommandType() <<
             ". Can only be replaced by: " << firstAbortedMissionCommand->getReplaceableByCommandType() << "\n";
@@ -22,6 +23,10 @@ int main() {
             std::cout << "Mission accepted!\n";
             executeMission(missionCommands);
             firstAbortedMissionCommand = MissionCommand::getFirstAbortedMissionCommand(missionCommands);
+        }
+
+        if (firstAbortedMissionCommand == NULL) {
+            runLoop = false;
         }
     }
     return 0;
